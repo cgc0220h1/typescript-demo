@@ -48,6 +48,7 @@ function main() {
 /**
  * Data types
  */
+
 /*
 function main() {
   let message: string;
@@ -97,15 +98,15 @@ function main() {
  */
 
 function main() {
-    console.log("START");
-    if (true) {
-        var lang = "vi";
-        let target = "en-us";
-        console.log("inside block");
-        console.log(target);
-    }
-    console.log(lang);
-    console.log(target);
+    var x = 5;
+    console.log(x);
+    var x = 10;
+    console.log(x);
+
+    let y = 55;
+    console.log(y);
+    let y = 100;
+    console.log(y);
 }
 
 main();
