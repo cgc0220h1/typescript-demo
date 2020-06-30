@@ -39,8 +39,8 @@ do {
 } while (idx < keys.length);
 
 console.log("for-of loop");
-for (const item of keys) {
-  console.log(item);
+for (const abc of keys) {
+  console.log(abc);
 }
 
 console.log("for-in loop");
