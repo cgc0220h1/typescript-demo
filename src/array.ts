@@ -71,6 +71,18 @@ const listSquare = list.map(function (num) {
 });
 console.log(listSquare);
 
+function newMap(array: Array<any>, handle: Function): Array<any> {
+    let result = [];
+    for (let item of array) {
+        result.push(handle(item));
+    }
+    return result;
+}
+const newListSquare = newMap(list, function (num) {
+    return num * num;
+})
+console.log("newListSquare: " + newListSquare);
+
 const result = categories.filter(function (str) {
     return str.length > 2;
 })
