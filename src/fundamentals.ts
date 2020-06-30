@@ -131,7 +131,14 @@ function main() {
 
     };
     message = 50;
-
+    function getPost(postId: string): IPost {
+        return {
+            id:postId,
+            title:'Post Title',
+            body: 'Post Body',
+            extra: 'data'
+        } as IPost;
+    }
 }
 
 main();
