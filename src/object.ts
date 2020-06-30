@@ -1,16 +1,16 @@
 import './scss/styles.scss';
 
-interface IUser {
-  name: string;
-  age: number
-}
+// interface IUser {
+//   name: string;
+//   age: number
+// }
 
-let customer: IUser = {
-  name: 'Bob',
-  age: 50
-};
+// let customer: IUser = {
+//   name: 'Bob',
+//   age: 50
+// };
 
-console.log(customer);
+// console.log(customer);
 
 /* customer = {
   name: 'Anna'
@@ -20,32 +20,84 @@ console.log(customer);
 * Property 'age' is missing in type '{ name: string; }'.
 */
 
+// class Shape {
+//   public x: number;
+//   public y: number;
+//   constructor(x: number, y: number) {
+//     this.x = x;
+//     this.y = y;
+//   }
+//   toString(): string {
+//     return `(x: ${this.x}, y: ${this.y})`;
+//   }
+// }
+//
+// interface IArea {
+//   area(): number;
+// }
+//
+// class Rect extends Shape implements IArea {
+//   constructor(x: number, y: number, public width: number, public height: number) {
+//     super(x, y);
+//   }
+//   area(): number {
+//     return this.width * this.height;
+//   }
+// }
+//
+// const rect = new Rect(5, 5, 10, 20);
+// console.log(rect.toString());
+// console.log(rect.area());
+
+interface IUser {
+    name: string;
+    age: number;
+}
+
+let customer: IUser = {
+    name: 'Bob',
+    age: 50
+};
+
+console.log(customer);
+
+// customer = {
+//   name: 'Anna'
+// }
+
 class Shape {
-  public x: number;
-  public y: number;
-  constructor(x: number, y: number) {
-    this.x = x;
-    this.y = y;
-  }
-  toString(): string {
-    return `(x: ${this.x}, y: ${this.y})`;
-  }
+    public x: number;
+    public y: number;
+
+    constructor(x: number, y: number) {
+        this.x = x;
+        this.y = y;
+    }
+
+    toString(): string {
+        return `(x: ${this.x}, y: ${this.y})`;
+    }
 }
 
 interface IArea {
-  area(): number;
+    area(): number;
 }
 
 class Rect extends Shape implements IArea {
-  constructor(x: number, y: number, public width: number, public height: number) {
-    super(x, y);
-  }
-  area(): number {
-    return this.width * this.height;
-  }
+    public width: number;
+    public height: number;
+
+    constructor(x: number, y: number, width: number, height: number) {
+        super(x, y);
+        this.width = width;
+        this.height = height;
+    }
+
+    area(): number {
+        return this.width * this.height;
+    }
 }
 
 const rect = new Rect(5, 5, 10, 20);
 console.log(rect.toString());
 console.log(rect.area());
-
