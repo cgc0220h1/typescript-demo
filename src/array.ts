@@ -78,6 +78,7 @@ function newMap(array: Array<any>, handle: Function): Array<any> {
     }
     return result;
 }
+
 const newListSquare = newMap(list, function (num) {
     return num * num;
 })
@@ -87,6 +88,27 @@ const result = categories.filter(function (str) {
     return str.length > 2;
 })
 console.log(result);
+
+function newFilter(array: Array<any>, handle: Function): Array<any> {
+    let result = [];
+    for (let item of array) {
+        if (handle(item)) {
+            result.push(item);
+        }
+    }
+    return result;
+}
+
+let demoArray = [1, 3, 6, 5];
+let demoResult = newFilter(demoArray, testValue);
+console.log("demoResult" + demoResult);
+
+function testValue(value) {
+    if (value > 3) {
+        return true;
+    }
+    return false
+}
 
 let x: [string, number];
 x = ["hello", 10];

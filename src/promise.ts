@@ -1,6 +1,6 @@
 import './scss/styles.scss';
 
-const wait5Secs = new Promise((resolve, reject) => {
+/*const wait5Secs = new Promise((resolve, reject) => {
   setTimeout(() => {
     resolve(5);
   }, 5000);
@@ -59,9 +59,9 @@ const promise = new Promise((resolve, reject) => {
 
 promise.then(data => console.log(data));
 
-/**
+/!**
  * Async/Await
- */
+ *!/
 async function f() {
   return 1;
 }
@@ -182,5 +182,115 @@ async function getBooksAndAuthorFixed(authorId: string) {
   };
 }
 
-getBooksAndAuthorFixed('author-id-2');
+getBooksAndAuthorFixed('author-id-2');*/
+
+const wait5Secs = new Promise(function (resolve: Function, reject: Function) {
+    const test = 1;
+    if (test > 0) {
+        resolve();
+    } else {
+        reject();
+    }
+})
+wait5Secs.then(function () {
+    setTimeout(function () {
+        console.log(1);
+    }, 5000);
+}).catch(function (err) {
+    console.log(err)
+})
+
+const aNewPromise = new Promise(function (resolve, reject) {
+    resolve('done');
+    reject(new Error('...'));
+    setTimeout(function () {
+        resolve('...');
+    })
+})
+aNewPromise.then(function (data) {
+    console.log(data);
+})
+
+function httpGet(url: string): Promise<any> {
+    return new Promise<any>(function (resolve, reject) {
+        const request = new XMLHttpRequest();
+        request.onload = function () {
+            if (this.status === 200) {
+                resolve(this.response)
+            } else {
+                reject(new Error(this.statusText));
+            }
+        };
+        request.onerror = function () {
+            reject(new Error('XMLHttpRequest Error: ' + this.statusText))
+        }
+        request.open('GET', url);
+        request.send();
+    });
+}
+
+httpGet('https://api.github.com/search/repositories?q=angular').then(function (value) {
+    console.log('Contents: ' + value);
+}).catch(function (reason) {
+    console.log('Something went wrong ', reason);
+})
+
+function parseResponse(value: string) {
+    try {
+        return JSON.parse(value);
+    } catch (_) {
+        return value;
+    }
+}
+
+httpGet('https://api.github.com/search/repositories?q=angular')
+    .then(parseResponse)
+    .then(function (data) {
+        console.log(data)
+    })
+    .catch(function (reason) {
+        console.error(' Something went wrong', reason);
+    });
+
+// async function f() {
+//     return 1;
+// }
+//
+// function fp() {
+//     return Promise.resolve(1);
+// }
+//
+// f().then(function (data) {
+//     console.log('async fn', data);
+// })
+
+function resolveAfter2Seconds() {
+    console.log("Starting slow promise")
+    return new Promise(function (resolve) {
+        setTimeout(function () {
+            resolve("slow")
+            console.log("slow promise is done")
+        }, 2000)
+    })
+}
+
+function resolveAfter1Second() {
+    console.log("starting fast promise")
+    return new Promise(function (resolve) {
+        setTimeout(function () {
+            resolve("fast")
+            console.log("fast promise is done")
+        })
+    })
+}
+
+async function sequentialStart() {
+    console.log('==SEQUENTIAL START==')
+
+    const slow = await resolveAfter2Seconds();
+    console.log(slow);
+
+    const fast = await resolveAfter1Second();
+    console.log(fast);
+}
 
