@@ -184,73 +184,116 @@ async function getBooksAndAuthorFixed(authorId: string) {
 
 getBooksAndAuthorFixed('author-id-2');*/
 
-const wait5Secs = new Promise(function (resolve: Function, reject: Function) {
-    const test = 1;
-    if (test > 0) {
-        resolve();
-    } else {
-        reject();
-    }
-})
-wait5Secs.then(function () {
-    setTimeout(function () {
-        console.log(1);
-    }, 5000);
-}).catch(function (err) {
-    console.log(err)
-})
+// function resolveAfter5Seconds() {
+//     console.log("Starting slow promise")
+//     return new Promise(function (resolve) {
+//         setTimeout(function () {
+//             resolve("in ra a")
+//             console.log("slow promise is done")
+//         }, 5000)
+//     })
+// }
+//
+// function resolveAfter3Second() {
+//     console.log("starting fast promise")
+//     return new Promise(function (resolve) {
+//         setTimeout(function () {
+//             resolve("in ra b")
+//             console.log("fast promise is done")
+//         }, 3000)
+//     })
+// }
+//
+// async function sequentialStart() {
+//     console.log('==SEQUENTIAL START==')
+//
+//     const slow = await resolveAfter5Seconds();
+//     console.log(slow);
+//
+//     const fast = await resolveAfter3Second();
+//     console.log(fast);
+// }
+//
+// sequentialStart();
+//
+// async function concurrentStart() {
+//     console.log("==CONCURRENT START with await==")
+//     const slow = resolveAfter5Seconds();
+//     const fast = resolveAfter3Second();
+//
+//     console.log(await slow);
+//     console.log(await fast);
+// }
+//
+// concurrentStart();
 
-const aNewPromise = new Promise(function (resolve, reject) {
-    resolve('done');
-    reject(new Error('...'));
-    setTimeout(function () {
-        resolve('...');
-    })
-})
-aNewPromise.then(function (data) {
-    console.log(data);
-})
-
-function httpGet(url: string): Promise<any> {
-    return new Promise<any>(function (resolve, reject) {
-        const request = new XMLHttpRequest();
-        request.onload = function () {
-            if (this.status === 200) {
-                resolve(this.response)
-            } else {
-                reject(new Error(this.statusText));
-            }
-        };
-        request.onerror = function () {
-            reject(new Error('XMLHttpRequest Error: ' + this.statusText))
-        }
-        request.open('GET', url);
-        request.send();
-    });
-}
-
-httpGet('https://api.github.com/search/repositories?q=angular').then(function (value) {
-    console.log('Contents: ' + value);
-}).catch(function (reason) {
-    console.log('Something went wrong ', reason);
-})
-
-function parseResponse(value: string) {
-    try {
-        return JSON.parse(value);
-    } catch (_) {
-        return value;
-    }
-}
-
-httpGet('https://api.github.com/search/repositories?q=angular')
-    .then(parseResponse)
-    .then(function (data) {
-        console.log(data)
-    })
-    .catch(function (reason) {
-        console.error(' Something went wrong', reason);
-    });
+// const wait5Secs = new Promise(function (resolve: Function, reject: Function) {
+//     const test = 1;
+//     if (test > 0) {
+//         resolve();
+//     } else {
+//         reject();
+//     }
+// })
+// wait5Secs.then(function () {
+//     setTimeout(function () {
+//         console.log(1);
+//     }, 5000);
+// }).catch(function (err) {
+//     console.log(err)
+// })
+//
+// const aNewPromise = new Promise(function (resolve, reject) {
+//     resolve('done');
+//     reject(new Error('...'));
+//     setTimeout(function () {
+//         resolve('...');
+//     })
+// })
+// aNewPromise.then(function (data) {
+//     console.log(data);
+// })
+//
+// function httpGet(url: string): Promise<any> {
+//     return new Promise<any>(function (resolve, reject) {
+//         const request = new XMLHttpRequest();
+//         request.onload = function () {
+//             if (this.status === 200) {
+//                 resolve(this.response)
+//             } else {
+//                 reject(new Error(this.statusText));
+//             }
+//         };
+//         request.onerror = function () {
+//             reject(new Error('XMLHttpRequest Error: ' + this.statusText))
+//         }
+//         request.open('GET', url);
+//         request.send();
+//     });
+// }
+//
+// httpGet('https://api.github.com/search/repositories?q=angular').then(function (value) {
+//     console.log('Contents: ' + value);
+// }).catch(function (reason) {
+//     console.log('Something went wrong ', reason);
+// })
+//
+// function parseResponse(value: string) {
+//     try {
+//         return JSON.parse(value);
+//     } catch (_) {
+//         return value;
+//     }
+// }
+//
+// httpGet('https://api.github.com/search/repositories?q=angular')
+//     .then(parseResponse)
+//     .then(function (data) {
+//         console.log(data)
+//     })
+//     .catch(function (reason) {
+//         console.error(' Something went wrong', reason);
+//     });
 
 // async function f() {
 //     return 1;
@@ -263,34 +306,105 @@ httpGet('https://api.github.com/search/repositories?q=angular')
 // f().then(function (data) {
 //     console.log('async fn', data);
 // })
+//
+// async function test() {
+//     const data = await fp();
+//     console.log('async/await', data)
+// }
+//
+// async function fns() {
+//     const promise = new Promise(function (resolve, reject) {
+//         setTimeout(function () {
+//             resolve("done")
+//         }, 1000)
+//     });
+//     const result = await promise;
+//     console.log(result);
+// }
+//
+// fns();
+//
+// fns().then(function (value) {
+//     console.log(value + " test");
+// });
+//
+// // return undefined test because fns() return nothing
+//
+// async function getUser(username: string) {
+//     try {
+//         const response = await fetch(
+//             `https://api.github.com/search/users?q=${username}`
+//         );
+//         return await response.json();
+//     } catch (e) {
+//         throw e;
+//     }
+// }
+//
+// getUser('bob').then(function (res) {
+//     console.log(res);
+// }).catch(function (err) {
+//     console.warn(err);
+// })
+//
+// function testSync() {
+//     let x = 0;
+//
+//     async function r5() {
+//         x += 1;
+//         console.log(x);
+//         return 5;
+//     }
+//
+//     async function r6() {
+//         x += await r5();
+//         console.log(x);
+//     }
+//
+//     r6();
+// }
+//
+// testSync();
 
-function resolveAfter2Seconds() {
-    console.log("Starting slow promise")
-    return new Promise(function (resolve) {
+async function fetchAllBook() {
+    await new Promise(function (resolve, reject) {
+        console.log('Waiting 2s ...');
         setTimeout(function () {
-            resolve("slow")
-            console.log("slow promise is done")
+            resolve();
         }, 2000)
     })
+    console.log('fetchAllBook')
+    return [
+        {
+            id: 'book-id-1',
+            authorId: 'author-id-1'
+        },
+        {
+            id: 'book-id-2',
+            authorId: 'author-id-2'
+        },
+        {
+            id: 'book-id-3',
+            authorId: 'author-id-3'
+        }
+    ];
 }
 
-function resolveAfter1Second() {
-    console.log("starting fast promise")
-    return new Promise(function (resolve) {
-        setTimeout(function () {
-            resolve("fast")
-            console.log("fast promise is done")
-        })
-    })
+async function fetchAuthorById(authorId: string) {
+    console.log('fetchAuthorById');
+    return {
+        authorId,
+    };
 }
 
-async function sequentialStart() {
-    console.log('==SEQUENTIAL START==')
-
-    const slow = await resolveAfter2Seconds();
-    console.log(slow);
-
-    const fast = await resolveAfter1Second();
-    console.log(fast);
+async function getBooksAndAuthorFixed(authorId: string) {
+    const bookPromise = fetchAllBook();
+    const authorPromise = fetchAuthorById(authorId);
+    const books = await bookPromise;
+    const author = await authorPromise;
+    return {
+        author,
+        books: books.filter(book => book.authorId === authorId),
+    };
 }
-
+getBooksAndAuthorFixed('author-id-2')
